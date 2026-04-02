@@ -1,0 +1,35 @@
+experiment_name: paper_glue_cross_family
+output_dir: outputs/paper/glue_cross_family/llama_target/mrpc
+base_model_path: "${MODEL_ROOT}/llama-3.1-8b-instruct"
+initial_target_lora: "${ADAPTER_ROOT}/glue/llama3/mrpc_qa_train"
+data_global:
+  dataset_dir: data
+  template: llama3
+  cutoff_len: 1024
+  batch_size: 1
+  num_workers: 4
+tasks:
+- task_name: glue_transfer
+  source_lora_paths:
+  - "${ADAPTER_ROOT}/glue/Qwen2.5/mrpc_qa_train"
+  - "${ADAPTER_ROOT}/glue/Qwen2.5/qnli_qa_train"
+  - "${ADAPTER_ROOT}/glue/Qwen2.5/rte_qa_train"
+  - "${ADAPTER_ROOT}/glue/Qwen2.5/sst2_qa_train"
+  transfer_ratio: '1'
+  datasets:
+  - name: glue_merged
+    type: main
+  training:
+    fusion_group_name: heterofusion_transfer
+    embed_dim: 1024
+    num_heads: 8
+    max_position_embeddings: 4096
+    num_epochs: 3
+    lr: 5.0e-05
+    alpha_init: 0.3
+    gradient_accumulation_steps: 8
+    mu_gate: 0.1
+    lambda_reg: 0.005
+    mu_target: 0.0
+    sigma_target: 1.0
+    num_projections: 2048

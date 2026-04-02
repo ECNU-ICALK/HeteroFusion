@@ -1,0 +1,51 @@
+experiment_name: paper_alpha_sweep
+output_dir: outputs/paper/sensitivity_alpha/mit_movie_alpha_0p4
+base_model_path: "${MODEL_ROOT}/llama-3.1-8b-instruct"
+initial_target_lora: "${ADAPTER_ROOT}/llama_instruct/NER_mit-movie_sft"
+data_global:
+  dataset_dir: data
+  template: llama3
+  cutoff_len: 1024
+  batch_size: 1
+  num_workers: 4
+tasks:
+- task_name: alpha_sweep
+  source_lora_paths:
+  - "${ADAPTER_ROOT}/Qwen2.5/UIE/RE_New-York-Times-RE_sample_30000"
+  - "${ADAPTER_ROOT}/Qwen2.5/UIE/RE_conll04"
+  - "${ADAPTER_ROOT}/Qwen2.5/UIE/NER_TweetNER7_sample_15000"
+  - "${ADAPTER_ROOT}/Qwen2.5/UIE/ET_FabNER"
+  - "${ADAPTER_ROOT}/Qwen2.5/UIE/ET_FindVehicle"
+  transfer_ratio: '1'
+  datasets:
+  - name: TweetNER7_sample_15000_sample300
+    type: main
+  - name: ET_FindVehicle_sample300
+    type: replay
+    ratio: all
+  - name: RE_conll04_sample300
+    type: replay
+    ratio: all
+  - name: RE_New-York-Times-RE_sample_30000_sample300
+    type: replay
+    ratio: all
+  - name: ET_FabNER_sample300
+    type: replay
+    ratio: all
+  - name: mit-movie_sample300
+    type: replay
+    ratio: all
+  training:
+    fusion_group_name: heterofusion_transfer
+    embed_dim: 1024
+    num_heads: 8
+    max_position_embeddings: 4096
+    num_epochs: 3
+    lr: 5.0e-05
+    alpha_init: 0.4
+    gradient_accumulation_steps: 8
+    mu_gate: 0.1
+    lambda_reg: 0.005
+    mu_target: 0.0
+    sigma_target: 1.0
+    num_projections: 2048
