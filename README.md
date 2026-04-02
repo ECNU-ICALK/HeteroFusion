@@ -162,8 +162,6 @@ This repository now contains the open-source documentation skeleton, but a few p
 - verify redistribution permissions for vendored code, datasets, adapters, and sample data
 - optionally separate the paper source tree from the code release tree
 
-A more detailed checklist is available in [`docs/OPEN_SOURCE_CHECKLIST.md`](docs/OPEN_SOURCE_CHECKLIST.md).
-
 ## Citation
 
 Please update the metadata below before the public release if the paper record changes.
@@ -181,4 +179,3 @@ Please update the metadata below before the public release if the paper record c
 
 - [Llama-Factory](https://github.com/hiyouga/LLaMA-Factory) for the training and data-processing foundation used to prepare experts
 - Hugging Face Transformers and PEFT for model and adapter tooling
-
