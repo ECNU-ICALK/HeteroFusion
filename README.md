@@ -167,11 +167,14 @@ This repository now contains the open-source documentation skeleton, but a few p
 Please update the metadata below before the public release if the paper record changes.
 
 ```bibtex
-@article{heterofusion2026,
-  title   = {Can Heterogeneous Language Models Be Fused?},
-  author  = {To be updated},
-  journal = {arXiv preprint},
-  year    = {2026}
+@article{chen2026heterogeneousfused,
+      title={Can Heterogeneous Language Models Be Fused?}, 
+      author={Shilian Chen and Jie Zhou and Qin Chen and Wen Wu and Xin Li and Qi Feng and Liang He},
+      year={2026},
+      eprint={2604.01674},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2604.01674}, 
 }
 ```
 
